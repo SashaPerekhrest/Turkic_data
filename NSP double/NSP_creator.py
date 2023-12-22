@@ -4,7 +4,7 @@ import nltk
 
 nltk.download('punkt')
 
-file_name = 'myfile.txt'
+file_name = 'tt_parced.txt'
 delimiter = '$$$'
 file = open(file_name, 'r', encoding="utf-8")
 tmp = file.read()
