@@ -16,9 +16,9 @@ writer = csv.writer(csv_file)
 writer.writerow(["sentence_A", "sentence_B", "sentence_C", "NSP", "new_url", "main_url"])
 
 textsWithUrls = tmp.split(delimiter)
+count_csv  = 0
 
 for textWithUrls in textsWithUrls:
-    print(textWithUrls.split("###"))
     splited_text = textWithUrls.split("###")
     if(len(splited_text) !=3):
         continue
@@ -27,23 +27,33 @@ for textWithUrls in textsWithUrls:
     mainUrl = splited_text[2]
     sentences = nltk.sent_tokenize(text)
 
-    last = ''
     iterator = 0
     count = len(sentences)
+    sen = sentences
     j=0
-    for news in sentences:
+    for j in range(0, count , 2):
         if(j+1 >= count):
             continue
-        iterator = random.randint(j+1, count-1)
-        second_news = sentences[iterator].replace('\n','')
-        del sentences[iterator]
-        news = news.replace('\n','')
-        count = len(sentences)
-        j += 1
-        if news == "" or second_news == "" or len(news) < 5 or len(second_news) < 5:
-            continue
+
         k = random.randint(0, 1)
-        if k == 1:
+        if k==0 :
+            iterator = j+1
+            second_news = sentences[iterator].replace('\n','')
+        else:
+            iterator = random.randint(0, len(sen)-1)
+            second_news = sen[iterator].replace('\n','')
+
+        del sen[iterator]
+        count = len(sentences)
+
+        news = sentences[j].replace('\n','')
+        if len(news) < 5 or len(second_news) < 5:
+            continue
+
+        g = random.randint(0, 1)
+        if g == 0:
             writer.writerow([news, second_news, k , url, mainUrl])
         else:
             writer.writerow([second_news, news, k , url, mainUrl])
+        count_csv += 1
+        print(count_csv)
