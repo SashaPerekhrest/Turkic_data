@@ -35,9 +35,9 @@ for textWithUrls in textsWithUrls:
         if(j+1 >= count):
             continue
         iterator = random.randint(j+1, count-1)
-        second_news = sentences[iterator].replace('"','')
+        second_news = sentences[iterator].replace('\n','')
         del sentences[iterator]
-        news = news.replace('"','')
+        news = news.replace('\n','')
         count = len(sentences)
         j += 1
         if news == "" or second_news == "" or len(news) < 5 or len(second_news) < 5:

@@ -34,8 +34,8 @@ for textWithUrls in textsWithUrls:
     for j in range(0, count , 2):
         if(j+1 >= count):
             continue
-        sentences[j] = sentences[j].replace('"','')
-        sentences[j+1] = sentences[j+1].replace('"','')
+        sentences[j] = sentences[j].replace('\n','')
+        sentences[j+1] = sentences[j+1].replace('\n','')
         k = random.randint(0, 1)
         if k == 1:
             writer.writerow([sentences[j], sentences[j+1], k, url, mainUrl])
