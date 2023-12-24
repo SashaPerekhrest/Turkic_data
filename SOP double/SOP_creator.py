@@ -4,7 +4,7 @@ import nltk
 
 nltk.download('punkt')
 
-file_name = 'myfile.txt'
+file_name = 'tt_parced.txt'
 delimiter = '$$$'
 file = open(file_name, 'r', encoding="utf-8")
 tmp = file.read()
@@ -16,9 +16,8 @@ writer = csv.writer(csv_file)
 writer.writerow(["sentence_A", "sentence_B", "sentence_C", "SOP", "new_url", "main_url"])
 
 textsWithUrls = tmp.split(delimiter)
-
+count_csv = 1
 for textWithUrls in textsWithUrls:
-    print(textWithUrls.split("###"))
     splited_text = textWithUrls.split("###")
     if(len(splited_text) !=3):
         continue
@@ -41,3 +40,5 @@ for textWithUrls in textsWithUrls:
             writer.writerow([sentences[j], sentences[j+1], k, url, mainUrl])
         else:
             writer.writerow([sentences[j+1],sentences[j], k , url, mainUrl])
+        print(count_csv)
+        count_csv +=1

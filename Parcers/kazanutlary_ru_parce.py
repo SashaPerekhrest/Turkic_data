@@ -5,7 +5,7 @@ import requests
 import csv
 
 main_urls = [
-    'https://tatar-today.ru/page/'
+    'https://kazanutlary.ru/news/widget/list/poslednie-stati/page/'
 ]
 
 # Создание объекта UserAgent
@@ -21,7 +21,7 @@ headers = {
     'User-Agent': user_agent
 }
 
-output_file = open('tt_parced.txt', 'a', encoding='utf-8')  # Открываем файл для записи (режим 'a' для добавления данных)
+output_file = open('3tt_parced.txt', 'a', encoding='utf-8')  # Открываем файл для записи (режим 'a' для добавления данных)
 
 for main_url in main_urls:
     i = 1
@@ -31,12 +31,12 @@ for main_url in main_urls:
         page = requests.get(url, headers=headers)
         soup = BeautifulSoup(page.text, 'lxml')
 
-        news_block = soup.find_all(class_='item hentry')
+        news_block = soup.find_all(class_='news-list__item np-news-item--image')
         if len(news_block) == 0:
             break  # Если блок новостей пуст, прерываем цикл
         for post in news_block:
-            if post.find("a"):
-                hrefs.append(post.find("a").get("href"))
+            if post.find(class_='news-list__link'):
+                hrefs.append(post.find(class_='news-list__link').get("href"))
 
         print(hrefs)
         if len(hrefs) != 0:
@@ -47,7 +47,7 @@ for main_url in main_urls:
                 one_news = requests.get(href, headers=headers)
                 tmp = one_news.text
                 soup_one_news = BeautifulSoup(tmp, 'lxml')
-                main_content_element = soup_one_news.find(class_='post-entry blockquote-style-1')
+                main_content_element = soup_one_news.find(class_='single-page__content')
                 if main_content_element:
                     main_content = main_content_element.find_all('p')
                 else:

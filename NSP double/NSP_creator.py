@@ -22,7 +22,7 @@ for textWithUrls in textsWithUrls:
     splited_text = textWithUrls.split("###")
     if(len(splited_text) !=3):
         continue
-    text = splited_text[0]
+    text = splited_text[0]   
     url = splited_text[1]
     mainUrl = splited_text[2]
     sentences = nltk.sent_tokenize(text)
